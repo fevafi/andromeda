@@ -1,0 +1,31 @@
+provider "google" {
+  credentials = file("ruta/al/archivo-de-credenciales.json")
+  project     = "tu-proyecto-de-gcp"
+  region      = "us-central1"
+}
+
+resource "google_bigquery_dataset" "example_dataset" {
+  dataset_id = "atomo"
+}
+
+resource "google_bigquery_table" "example_table" {
+  dataset_id = google_bigquery_dataset.example_dataset.dataset_id
+  table_id   = "molecula"
+
+  schema {
+    avro_schema = <<EOF_AVRO
+select a, b, c from dataset.tabla;
+EOF_AVRO
+  }
+}
+
+resource "google_bigquery_table" "example_view" {
+  dataset_id = google_bigquery_dataset.example_dataset.dataset_id
+  table_id   = "tejido"
+
+  view {
+    query = <<EOF_SQL
+select a as d, b, c from dataset.tabla2;
+EOF_SQL
+  }
+}

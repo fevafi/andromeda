@@ -1,0 +1,1 @@
+select a as d, b, c from dataset.tabla2;
