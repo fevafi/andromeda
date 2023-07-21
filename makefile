@@ -2,10 +2,20 @@
 
 .PHONY: add_table help
 
-add_table:
+add_table: 
 	@./addTable.sh $(ARGS)
 
+.PHONY: auth
 
+auth: 
+	@./addPermision.sh $(ARGS)
+
+.PHONY: procedure
+
+procedure: 
+	@./addProcedure.sh $(ARGS)
+
+.PHONY: help
 help:
 	@echo "Uso: make add_table ARGS='<nombre_archivo_tf> <dataset> <tabla> <vista> <ruta_schema_avro> <ruta_sql_vista>'"
 	@echo ""
